@@ -1,4 +1,6 @@
 # root-
+Me and AstralZX's own sudo replacement 
+
 
 installation: 
 ```bash
