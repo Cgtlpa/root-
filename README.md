@@ -2,6 +2,6 @@
 
 installation: 
 ```bash
-git clone 
+git clone https://github.com/Cgtlpa/root- && cd root- && bash ./install.sh
 
 ```
