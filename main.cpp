@@ -25,4 +25,6 @@ int main(int argc, char *argv[]) {
 
   std::perror("Execution failed");
   return 1;
+//root is a simple replacement for sudo
 }
+
