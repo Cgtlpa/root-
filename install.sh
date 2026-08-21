@@ -1,19 +1,15 @@
 #!/bin/bash
-# install.sh - Compile and install the root program
 
-# Colors for output
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[0;33m'
 BLUE='\033[0;34m'
-NC='\033[0m' # No Color
+NC='\033[0m'
 
-# Configuration
 SOURCE="main.cpp"
 TARGET="root"
 INSTALL_DIR="/usr/local/bin"
 
-# Detect distribution
 detect_distro() {
   if [ -f /etc/os-release ]; then
     . /etc/os-release
@@ -31,7 +27,6 @@ detect_distro() {
 
 DISTRO=$(detect_distro)
 
-# Function to install g++ if missing
 check_and_install_gpp() {
   if ! command -v g++ &>/dev/null; then
     echo -e "${YELLOW}⚠️  g++ not found. Installing...${NC}"
@@ -79,7 +74,6 @@ check_and_install_gpp() {
   fi
 }
 
-# Function to compile the program
 compile_program() {
   echo -e "${BLUE}Compiling $TARGET...${NC}"
 
@@ -98,11 +92,9 @@ compile_program() {
   fi
 }
 
-# Function to install system-wide
 install_system() {
   echo -e "${BLUE}Installing to $INSTALL_DIR...${NC}"
 
-  # Check if running as root
   if [ "$EUID" -ne 0 ]; then
     echo -e "${YELLOW}Need root privileges for installation${NC}"
     sudo cp "$TARGET" "$INSTALL_DIR/"
@@ -124,7 +116,6 @@ install_system() {
   fi
 }
 
-# Function to setup local (without system install)
 install_local() {
   echo -e "${BLUE}Setting up local binary...${NC}"
 
@@ -142,11 +133,9 @@ install_local() {
   echo -e "${GREEN}Example:${NC} ./$TARGET whoami"
 }
 
-# Function to test the program
 test_program() {
     echo -e "${BLUE}Testing $TARGET...${NC}"
 
-    # Use full path to avoid PATH issues
     if /usr/local/bin/root whoami > /dev/null 2>&1; then
         echo -e "${GREEN}✓ Test passed!${NC}"
         echo -e "  $(/usr/local/bin/root whoami 2>/dev/null)"
@@ -156,7 +145,6 @@ test_program() {
     fi
 }
 
-# Function to uninstall
 uninstall() {
   echo -e "${YELLOW}Removing $TARGET from $INSTALL_DIR...${NC}"
 
@@ -169,14 +157,12 @@ uninstall() {
   echo -e "${GREEN}✓ Uninstallation complete${NC}"
 }
 
-# Function to clean
 clean() {
   echo -e "${YELLOW}Cleaning...${NC}"
   rm -f "$TARGET"
   echo -e "${GREEN}✓ Clean complete${NC}"
 }
 
-# Function to show help
 show_help() {
   echo -e "${GREEN}╔════════════════════════════════════════════════════════════╗${NC}"
   echo -e "${GREEN}║  Root Program Installer                                   ║${NC}"
@@ -199,7 +185,6 @@ show_help() {
   echo ""
 }
 
-# Main execution
 case "$1" in
 local)
   check_and_install_gpp
