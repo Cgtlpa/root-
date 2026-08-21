@@ -1,5 +1,7 @@
 # root-
 
 installation: 
-```hello 
+```bash
+git clone 
+
 ```
